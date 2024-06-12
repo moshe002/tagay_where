@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { addLocation } from '../services/location';
 import { logoutUser, fetchUser } from '../services/auth';
-import { useNavigate } from 'react-router-dom';
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { UserNotLoggedIn } from './UserNotLoggedIn';
 
 type FloatingSidebarProps = {
     user: {} | undefined,
@@ -30,8 +30,6 @@ export const FloatingSidebar = ({
     setUser,
     formData, 
     setFormData }: FloatingSidebarProps) => {
-
-    const nav = useNavigate();
 
     const [retrieveUser, setRetrieveUser] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
@@ -101,12 +99,7 @@ export const FloatingSidebar = ({
             </h1>
             {
                 !user ? 
-                <button
-                    className="text-white font-bold rounded-md bg-blue-400 p-2 mb-5" 
-                    onClick={() => nav('/login')} 
-                    type='button'>
-                        LOGIN TO ADD LOCATIONS
-                </button>
+                <UserNotLoggedIn />
                 :
                 <form onSubmit={handleSubmitLocation} className="flex flex-col items-center gap-5 mb-5">
                     <div className='flex flex-col'>
